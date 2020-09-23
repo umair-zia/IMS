@@ -1,0 +1,78 @@
+{% extends 'side-bar.html' %}
+{% load static %}
+{% block content %}
+
+          <div class="row">
+            <div class="col-md-12" style="background-color: rgb(122, 175, 188); border-radius: 20px; height: 500px;">
+              <div class="master-schedule" >
+                <form method="post" action="{% url 'schedule:createMasterSchedule' %}" autocomplete="off">
+                    {% csrf_token %}
+                  <h3 class="heading-first">
+                    Dashboard >
+                    <span class="heading-second">Master Schedule</span>
+                    <span>
+{#                      <input type="text" name="dates" id="Txt_Date" placeholder="Choose Date" style="cursor: pointer;">#}
+                    </span>
+                  </h3>
+    
+                  <div class="row">
+                    <div class="col-md-3 box">
+                      <div class="heading">
+                        <div class="row">
+                          <p class="col-md-6">Exams</p>
+                          <a class="col-md-6 master-right" href="{% url "schedule:createExam" %}"><p >+</p></a>
+                        </div>
+                      </div>
+    
+                      <div class="b-l master-content">
+                          {% for exam in Exams %}
+                            <p>{{ exam }}</p>
+                          {% endfor %}
+                      </div>
+                    </div>
+
+                    <div class="col-md-1 master-icon">
+                      <p>></p>
+                    </div>
+    
+                    <div class="col-md-3 box ">
+                      <div class="heading">
+                        <p >Assignment</p>
+                      </div>
+    
+                      <div class="b-m master-content ">
+                      </div>
+                    </div>
+    
+                    <div class="col-md-1 master-icon">
+                      <p><</p>
+                    </div>
+
+                    <div class="col-md-3 box">
+                      <div class="heading">
+                        <div class="row">
+                          <p class="col-md-6">Rooms</p>
+                          <a class="col-md-6 master-right" href="{% url 'schedule:createRoom' %}"><p >+</p></a>
+                        </div>
+                      </div>
+    
+                      <div class="b-r master-content">
+                          {% for room in Rooms %}
+                            <p>{{ room }}</p>
+                          {% endfor %}
+                      </div>
+                    </div>
+    
+                    <div class="col-md-12 text-center">
+                      <button type="submit" class="button-submit">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+{% endblock %}
+
+

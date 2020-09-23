@@ -1,0 +1,124 @@
+{% extends 'side-bar.html' %} {% load static %} {% block content %}
+<div class="master-schedule-file">
+  <!-- Create Exam -->
+
+  <div
+    class="row d-flex justify-content-around"
+    style="height: 70px; padding-top: 10px"
+  >
+    <div class="col-md-6">
+      <h3 class="heading-first">
+        Dashboard >
+        <span class="heading-last">Master Schedule</span>
+      </h3>
+    </div>
+    <div class="col-md-6 d-flex justify-content-around float-right">
+      <h4 class="" style="font-size: 16px; padding-top: 20px">
+         Current Date: {% now "SHORT_DATETIME_FORMAT" %}
+      </h4>
+
+      <h3 class="heading-reload">
+        <a href="{% url 'schedule:roomTable' %}">
+          <i
+            class="fa fa-refresh"
+            style="font-size: 20px; color: #109bf8"
+          ></i> Reload </a>
+      </h3>
+    </div>
+
+    <div class="col-md-2 justify-content-around" style="padding-top: 10px">
+
+
+    </div>
+  </div>
+
+  <div class="content">
+{#    <div class="row d-flex justify-content-around table-design">#}
+{#      <div class="col-md-10">#}
+{#        <h2 class="" style="font-size: 16px">#}
+{#          Room 1#}
+{#          <span>#}
+{#            <a type="button" data-toggle="modal" data-target="#editModal">#}
+{#              <i class="fa fa-arrow-down" aria-hidden="true"></i>#}
+{#            </a>#}
+{#          </span>#}
+{#        </h2>#}
+{#      </div>#}
+{##}
+{#      <div class="col-md-2">#}
+{#        <span>#}
+{#          <a>#}
+{#            <i#}
+{#              class="fa fa-angle-left"#}
+{#              style="font-size: 20px"#}
+{#              aria-hidden="true"#}
+{#            ></i>#}
+{#          </a>#}
+{#        </span>#}
+{#        <span>#}
+{#          <a>#}
+{#            <i#}
+{#              class="fa fa-angle-right"#}
+{#              style="font-size: 20px"#}
+{#              aria-hidden="true"#}
+{#            ></i>#}
+{#          </a>#}
+{#        </span>#}
+{#      </div>#}
+{#    </div>#}
+
+    <div class="row d-flex justify-content-around table-design">
+      <div class="col-md-12">
+        <table class="table" style="background-color: white">
+          <thead>
+            <tr>
+<!--              <th scope="col">Record ID</th>-->
+              <th scope="col">Exam Code</th>
+              <th scope="col">Exam Mode</th>
+              <th scope="col">Exam Medium</th>
+              <th scope="col">Exam Schedule</th>
+              <th scope="col">Session ID</th>
+              <th scope="col">Company ID</th>
+              <th scope="col">Registration Ends</th>
+<!--                <th scope="col"> Edit </th>-->
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in master %}
+            <tr>
+<!--              <th scope="row">{{ m.id }}</th>-->
+              <td>{{ m.exam }}</td>
+              <td>{{ m.examMode }}</td>
+              <td>{{ m.examMedium }}</td>
+              <td>
+                {% for day in m.examSchedule.values %} {{ day.name }}
+                , {% endfor %}
+              </td>
+              <td>{{ m.session }}</td>
+              <td>{{ m.componyId }}</td>
+              <td>{{ m.regSchedule }} days before exam</td>
+                <td>
+                    <a type="button"  href="{% url 'schedule:updateMasterSchedule' id=m.id  %}">
+                        <i class="fa fa-pencil icons-add-table-room" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right" style="margin-top: 10px">
+      <a
+        href="{% url 'schedule:createSchedule' %}"
+        class="button-create-schedule"
+      >
+        Create Schedule
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

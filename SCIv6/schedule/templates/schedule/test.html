@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>Session ID</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Session Code</th>
+        </thead>
+        <tbody>
+            {% for s in SESSIONS %}
+                <tr><td>{{ s.SESSIONID }}</td><td>{{ s.ENDTIME }}</td><td>{{ s.STARTTIME }}</td><td>{{ s.SESSIONCODE }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</body>
+</html>

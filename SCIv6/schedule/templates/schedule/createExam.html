@@ -1,0 +1,126 @@
+{% extends 'side-bar.html' %} {% load static %} {% block links %}
+<link rel="stylesheet" href="{% static 'css/side-bar.css' %}" />
+{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-create-exam">
+      <form method="post" action="{% url 'schedule:createExam' %}">
+        {% csrf_token %}
+        <h3 class="heading-first">
+          Create Master Schedule >
+          <span class="heading-last">Create Exam</span>
+        </h3>
+
+        <div class="row">
+          <div class="col-md-4">
+{#            <div class="form-group form-ctrl">#}
+{#              <label class="label-style">Record Id</label>#}
+{#              {{ form.recordId }}#}
+{#            </div>#}
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">Medium</label>
+
+              {{ form.medium }}
+            </div>
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">Company Id</label>
+
+              {{ form.componyId }}
+            </div>
+            <div class="form-group form-ctrl">
+              <label class="label-style">Couse Code</label>
+
+              {{ form.courseCode }}
+            </div>
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">Code</label>
+
+              {{ form.code }}
+            </div>
+            <div class="form-group form-ctrl">
+              <label class="label-style">Session Id</label>
+
+              {{ form.sessionId }}
+            </div>
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">Seats</label>
+
+              {{ form.seats }}
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group form-ctrl">
+              <label class="label-style">Result Schedule</label>
+
+              {{ form.resultSchedule }}
+            </div>
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">Certificate Schedule</label>
+
+              {{ form.certificateSchedule }}
+            </div>
+            <div class="form-group form-ctrl">
+              <label class="label-style">Assessor</label>
+
+              {{ form.assessor }}
+            </div>
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">Mode</label>
+
+              {{ form.mode }}
+            </div>
+            <div class="form-group form-ctrl">
+              <label class="label-style">Registration Schedule</label>
+              {{ form.registrationSchedule }}
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group form-ctrl">
+              <label class="label-style">Title</label>
+
+              {{ form.title }}
+            </div>
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">Start Time</label>
+
+              {{ form.startTime }}
+            </div>
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">End Time</label>
+
+              {{ form.endTime }}
+            </div>
+            <div class="form-group form-ctrl">
+              <label class="label-style">Break Start Time</label>
+              {{ form.bstartTime }}
+            </div>
+
+            <div class="form-group form-ctrl">
+              <label class="label-style">Break End Time</label>
+              {{ form.bendTime }}
+            </div>
+            <div class="form-group form-ctrl">
+              <label class="label-style"> Exam Dates</label>
+              {{ form.examDates }}
+            </div>
+          </div>
+
+          <div class="col-md-12 text-center">
+            <button type="submit" class="button-submit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

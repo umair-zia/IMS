@@ -1,0 +1,21 @@
+{% extends 'side-bar.html' %} {% load static %} {% block links %}
+<link rel="stylesheet" href="{% static 'css/side-bar.css' %}" />
+{% endblock %}
+<!-- block content -->
+{% block content %}
+<div class="row thank-schedule">
+  <div class="col-md-12 justify-content-center align-self-center hero-text">
+        <h1 style="color: #f4f7fe">Schedule has been created successfully</h1>
+        <a type="submit" class="ms-button-submit-red" href="{% url 'schedule:calendar' %}">
+            <span>
+
+                    <i class="fa fa-eye"></i>
+                    View Schedule
+
+
+            </span>
+
+        </a>
+  </div>
+</div>
+{% endblock %}

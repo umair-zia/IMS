@@ -1,0 +1,154 @@
+{% extends 'side-bar.html' %} {% load static %} {% block links %}
+<link rel="stylesheet" href="{% static 'css/side-bar.css' %}" />
+{% endblock %} {% block content %}
+{% if msg %}
+<div class="alert alert-danger" role="alert">
+  {{msg}} !
+</div>
+{% endif %}
+{% if success %}
+<div class="alert alert-success" role="alert">
+  {{success}}.
+</div>
+{% endif %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-create-exam">
+      <form method="post" action="{% url 'schedule:createsExam' %}">
+        {% csrf_token %}
+        <h3 class="heading-first">
+          Create Master Schedule
+<!--          <span class="heading-last">Create Exam</span>-->
+        </h3>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group form-ctrl">
+                          <label class="label-style">Exam</label>
+                          <select id="room" class="form-control select h-25  pt-2 pb-2 selectBox" name="exam" required>
+                            <option  value="">Select Exam</option>
+                            {% for e in exam %}
+                              <option value="{{e.Exam_Code}}">{{e.Exam_Code}}</option>
+                            {% endfor %}
+                          </select>
+                </div>
+                <div class="form-group form-ctrl">
+                  <label class="label-style">Exam Mode</label>
+                  <input class="form-control" type="text" value="C" name="examMode" placeholder="Mode" required>
+                </div>
+                <div class="form-group form-ctrl">
+                  <label class="label-style">Exam Medium</label>
+                  <input class="form-control" type="text" value="E" name="examMed" placeholder="Medium" required>
+                </div>
+                <div class="form-group form-ctrl">
+                  <label class="label-style">Seats</label>
+                  <input class="form-control" min="1" type="number" name="seats" placeholder="Seats" required>
+                </div>
+
+          </div>
+
+
+
+          <div class="col-md-4">
+                <div class="form-group form-ctrl">
+                  <label class="label-style">Room</label>
+                  <select id="room" class="form-control select h-25  pt-2 pb-2 selectBox" name="room" required>
+                    <option  value="">Select Room</option>
+                    {% for r in room %}
+                      <option value="{{r.ROOMID}}">{{r.ROOMDESC}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+            <div class="form-group form-ctrl">
+                          <label class="label-style">Subcode</label>
+                          <select id="room" class="form-control select h-25  pt-2 pb-2 selectBox" name="subcode" required>
+                            <option  value="">Select Subcode</option>
+                              <option  value="-">-</option>
+                            {% for s in subcodes %}
+                              <option value="{{s.Module_Code}}">{{s.Module_Code}}</option>
+                            {% endfor %}
+                          </select>
+                </div>
+                <div class="form-group form-ctrl">
+                              <label class="label-style">Company ID</label>
+                              <select id="room" class="form-control select h-25  pt-2 pb-2 selectBox" name="componyId" required>
+                                <option  value="">Select Company ID</option>
+                                  <option  value="OPEN">OPEN</option>
+                                {% for c in companyid %}
+                                  <option value="{{c.COMPANYID}}">{{c.COMPANYID}} - {{c.COMPANYDESC}}</option>
+                                {% endfor %}
+                              </select>
+                </div>
+                <div class="form-group form-ctrl text-white">
+                    <label class="label-style">Exam Days</label>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="examSchedule[]" value="1">Monday
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="examSchedule[]" value="2">Tuesday
+                  </label>
+                </div>
+                                    <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="examSchedule[]" value="3">Wednesday
+                  </label>
+                </div>
+                                    <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="examSchedule[]" value="4">Thursday
+                  </label>
+                </div>
+                                    <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="examSchedule[]" value="5">Friday
+                  </label>
+                </div>
+                </div>
+          </div>
+
+          <div>
+
+          </div>
+
+          <div class="col-md-4">
+                <div class="form-group form-ctrl">
+                  <label class="label-style">Session</label>
+                    <input class="form-control" type="text" name="session" placeholder="Session Code" required>
+                </div>
+                              <div class="form-group form-ctrl">
+                  <label class="label-style">Registration Schedule</label>
+                  <input class="form-control" type="number" name="regSchedule" placeholder="Days before exam" required>
+                </div>
+                <div class="form-group form-ctrl">
+                  <label class="label-style">Result Schedule</label>
+                  <input class="form-control" type="number" name="resSchedule" placeholder="Days after exam (Optional)">
+                </div>
+                <div class="form-group form-ctrl">
+                  <label class="label-style">Certificate Schedule</label>
+                  <input class="form-control" type="number" name="cerSchedule" placeholder="Days after exam (Optional)">
+                </div>
+
+
+          </div>
+
+
+
+
+
+
+
+          <div class="col-md-12 text-center">
+            <button type="submit" class="button-submit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

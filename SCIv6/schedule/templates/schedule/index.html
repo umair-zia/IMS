@@ -1,0 +1,411 @@
+{% extends 'side-bar.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+
+{% block links %}
+
+<!-- JS, Popper.js, and jQuery -->
+<script
+  src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="{% static 'css/side-bar.css' %}" />
+
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+  crossorigin="anonymous"
+/>
+{% endblock %} {% block content %}
+
+<div class="row dashboard">
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <div class="count">
+          <div class="progress-left-side mx-auto mt-5" data-value="{{overall}}">
+            <span class="progress-left">
+              <span class="progress-bar border-primary"></span>
+            </span>
+            <span class="progress-right">
+              <span class="progress-bar border-primary"></span>
+            </span>
+            <div
+              class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center"
+            >
+              <div class="">
+                <div class="h5 font-weight-bold ml-4">{{overall}} %</div>
+                <div class="h5 font-weight-bold">Availible</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row text-center mt-4">
+            <div class="col-6">
+              <div class="h4 fa fa-square mr-2" style="color: #a3a1fb"></div>
+              <span class="small text-body">Availible</span>
+            </div>
+            <div class="col-6" style="color: gainsboro">
+              <div class="h4 fa fa-square mr-2"></div>
+              <span class="small text-body">Not Availible</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <a href="{% url 'schedule:calendar' %}">
+            <div class="headings-left mt-4">
+              <div class="row">
+                <div class="col-sm-2">
+                  <i class="fa fa-list icon adhoc"> </i>
+                </div>
+                <div class="col-sm-10">
+                  <h5 class="heading adhoc">Adhoc Schedule</h5>
+                </div>
+              </div>
+            </div>
+          </a>
+<!--          <a href="{% url 'schedule:createSchedule' %}">-->
+<!--            <div class="headings-left mt-4">-->
+<!--              <div class="row">-->
+<!--                <div class="col-sm-2">-->
+<!--                  <i class="fa fa-clock-o icon sch"> </i>-->
+<!--                </div>-->
+<!--                <div class="col-sm-10">-->
+<!--                  <h5 class="heading sch">Schedule</h5>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </a>-->
+
+          <a href="{% url 'schedule:createsExam' %}">
+            <div class="headings-left mt-4">
+              <div class="row">
+                <div class="col-sm-2">
+                  <i class="fa fa-calendar-minus-o icon crmssch"> </i>
+                </div>
+                <div class="col-sm-10">
+                  <h5 class="heading crmssch">Create Master Schedule</h5>
+                </div>
+              </div>
+            </div>
+          </a>
+          <a href="{% url 'schedule:roomTable' %}">
+            <div class="headings-left mt-4">
+              <div class="row">
+                <div class="col-sm-2">
+                  <i class="fa fa-calendar icon mssch"> </i>
+                </div>
+                <div class="col-sm-10">
+                  <h5 class="heading mssch">Master Schedule</h5>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <!-- header -->
+        <div class="center-content">
+          <div class="row">
+            <div
+              class="col-md-9 col-sm-12"
+              style="
+                border-top-right-radius: 20px;
+                border-top-left-radius: 20px;
+              "
+            >
+              <h5 class="font-weight-bold">
+                Examination
+                <span class="badge badge-pill badge-dark">{{ seatCount }}</span>
+              </h5>
+            </div>
+
+            <div class="col-md-3 col-sm-12 justify-content-center d-flex pl-5">
+              <span>
+                <a class="pr-2" href="{% url 'schedule:index' %}">
+                  <i class="fa fa-refresh" style="color: lightblue"> </i>
+                </a>
+              </span>
+              Reload
+
+{#              <button class="view-by ml-3" style="font-size: small">#}
+{#                View by#}
+{#                <a>#}
+{#                  <i class="fa fa-angle-down"> </i>#}
+{#                </a>#}
+{#              </button>#}
+            </div>
+          </div>
+        </div>
+
+        <!-- center content -->
+        <div class="center-content" id="overflowTest">
+          <div class="border-mar border-bottom-line">
+            <p class="font-weight-bold">Exams</p>
+          </div>
+
+          {% for s in seatAlloc %}
+          <div class="border-mar border-bottom-line">
+            <p class="font-weight-light">{{ s.EXAMCODE }}</p>
+            <p class="capacity">Capacity: {{ s.SEATS }}</p>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- bottom content -->
+        <div>
+          <div class="center-content">
+            <div class="row">
+              <div class="col-md-11">
+                <h5 class="font-weight-bold">Exams Status</h5>
+              </div>
+              <div class="col-md-1">
+{#                <a>#}
+{#                  <i class="fa fa-ellipsis-v"> </i>#}
+{#                </a>#}
+              </div>
+            </div>
+
+            <div class="row " id="overflowTest1">
+              {% for s in seatAlloc %}
+              <div class="col-md-1">
+                <div class="progress progress-bar-vertical">
+<!--                  <div-->
+<!--                    class="progress-bar"-->
+<!--                    role="progressbar"-->
+<!--                    style="height:  {{s.get_percentage}}%; background-color: #003263"-->
+<!--                  >-->
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      style="height: {{s.get_percentageAvailable}}%; background-color: #ff007c"
+                    ></div>
+<!--                  </div>-->
+                </div>
+                <span class="spanning">{{s.EXAMCODE}}</span>
+              </div>
+              {% endfor %}
+
+
+            </div>
+
+            <div class="row">
+              <div class="col-6 text-center">
+                <div class="h4 fa fa-circle mr-2" style="color: #003263"></div>
+                <span class="small text-body">Occupied</span>
+              </div>
+              <div class="col-6" style="color: #ff007c">
+                <div class="h4 fa fa-circle mr-2"></div>
+                <span class="small text-body">Vacent</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="upper">
+          <div>
+            <div class="d-flex">
+              <div class="col-md-10">
+                <h5 class="font-weight-bold mt-2 border-mar border-bottom-line">
+                  Alerts
+                </h5>
+              </div>
+
+              <div class="col-md-2">
+                <span
+                  class="badge badge-light badge-dark number-circle"
+                  style="background-color: red"
+                  >12</span
+                >
+              </div>
+            </div>
+
+            <h5 class="mt-4 today">
+              Today
+              <span>
+                <a>
+                  <i class="fa fa-angle-down"> </i>
+                </a>
+              </span>
+            </h5>
+          </div>
+
+          <div class="d-flex mt-4">
+            <div class="ml-2 mt-1">
+              <a class="icon-exlamation">
+                <i class="fa fa-exclamation" style="color: white"> </i>
+              </a>
+            </div>
+            <div class="ml-2">
+              <p class="font-weight-bold" style="font-size: smaller">
+                Project Noname
+              </p>
+              <p style="font-size: xx-small; margin-top: -10px">
+                12 minutes ago
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex">
+            <div class="ml-2 mt-1">
+              <a class="icon-exlamation">
+                <i class="fa fa-exclamation" style="color: white"> </i>
+              </a>
+            </div>
+            <div class="ml-2">
+              <p class="font-weight-bold" style="font-size: smaller">
+                Income calculation
+              </p>
+              <p style="font-size: xx-small; margin-top: -10px">
+                12 minutes ago
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex">
+            <div class="ml-2 mt-1">
+              <a class="icon-exlamation">
+                <i class="fa fa-exclamation" style="color: white"> </i>
+              </a>
+            </div>
+            <div class="ml-2">
+              <p class="font-weight-bold" style="font-size: smaller">
+                New member
+              </p>
+              <p style="font-size: xx-small; margin-top: -10px">
+                12 minutes ago
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="upper">
+          <div class="header d-flex justify-content-around">
+            <div>
+              <h5 class="font-weight-bold mt-2">Threshold</h5>
+            </div>
+            <h5 class="mt-2">
+
+              <span>
+                <a>
+                  <i class="fa fa-angle-down"> </i>
+                </a>
+              </span>
+            </h5>
+          </div>
+
+          <div class="mt-4" id="overflowTest">
+            {% for e in examSch %}
+            <div class="d-flex justify-content-around  ml-n5">
+              <div class="progress-right-side" data-value="{{e.get_percentage}}">
+                <span class="progress-left">
+                  <span class="progress-bar border-primary"></span>
+                </span>
+                <span class="progress-right">
+                  <span class="progress-bar border-primary"></span>
+                </span>
+                <div
+                  class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center"
+                >
+                  <div class="h5 font-weight-bold pt-1">{{e.get_percentage}}</div>
+                </div>
+              </div>
+
+              <div class="ml-n5">
+                <p class="font-weight-bold mb-0" style="font-size: smaller">
+                  {{e.ROOMID}}
+                </p>
+                <p class="m-0"><small>{{e.get_percentage}}% Reserved</small> </p>
+                <p ><small>{{e.getDate}}</small></p>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block script %}
+<script>
+  $("#menu-toggle ").click(function (e) {
+    e.preventDefault();
+    $("#wrapper ").toggleClass("toggled ");
+  });
+
+  // Progress bar
+  $(function () {
+    $(".progress-left-side").each(function () {
+      var value = $(this).attr("data-value");
+      var left = $(this).find(".progress-left .progress-bar");
+      var right = $(this).find(".progress-right .progress-bar");
+
+      if (value > 0) {
+        if (value <= 50) {
+          right.css(
+            "transform",
+            "rotate(" + percentageToDegrees(value) + "deg)"
+          );
+        } else {
+          right.css("transform", "rotate(180deg)");
+          left.css(
+            "transform",
+            "rotate(" + percentageToDegrees(value - 50) + "deg)"
+          );
+        }
+      }
+    });
+
+    function percentageToDegrees(percentage) {
+      return (percentage / 100) * 360;
+    }
+  });
+
+  $(function () {
+    $(".progress-right-side").each(function () {
+      var value = $(this).attr("data-value");
+      var left = $(this).find(".progress-left .progress-bar");
+      var right = $(this).find(".progress-right .progress-bar");
+
+      if (value > 0) {
+        if (value <= 50) {
+          right.css(
+            "transform",
+            "rotate(" + percentageToDegrees(value) + "deg)"
+          );
+        } else {
+          right.css("transform", "rotate(180deg)");
+          left.css(
+            "transform",
+            "rotate(" + percentageToDegrees(value - 50) + "deg)"
+          );
+        }
+      }
+    });
+
+    function percentageToDegrees(percentage) {
+      return (percentage / 100) * 360;
+    }
+  });
+</script>
+
+{% endblock %} {% endblock %}
